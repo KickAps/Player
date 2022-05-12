@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PlayerController!{% endblock %}
+
+{% block body %}
+    <div class="text-center m-4">
+        <a href="{{ path('app_index') }}" class="btn btn-secondary">
+            Return
+        </a>
+    </div>
+
+    <div>
+        <div class="player-container w-50 m-auto">
+            <video width="100%" controls>
+                <source src="{{ asset('videos/' ~ video_path) }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+{% endblock %}
