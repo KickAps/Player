@@ -15,14 +15,27 @@ class VideoType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options): void {
         $builder
             ->add('title')
-            ->add('path', FileType::class, [
+            ->add('video', FileType::class, [
                 'label' => 'Vidéo',
                 'label_attr' => ['class' => 'title'],
                 'mapped' => false,
                 'attr' => [
                     'class' => 'no-title',
                     'accept' => "video/mp4"
-                ]
+                ],
+//                'constraints' => [
+//                    new All([
+//                        'constraints' => [
+//                            new File([
+//                                'maxSize' => '2G',
+//                                'mimeTypes' => [
+//                                    'video/mp4'
+//                                ],
+//                                'mimeTypesMessage' => 'Veuillez choisir une video au format mp4',
+//                            ])
+//                        ]
+//                    ])
+//                ],
             ])
             ->add('year')
             ->add('thumbnail', FileType::class, [
