@@ -22,16 +22,16 @@ class PlayerController extends AbstractController {
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $video_file = $form->get('video')->getData();
+            //$video_file = $form->get('video')->getData();
             $thumbnail_file = $form->get('thumbnail')->getData();
 
             //$filename = $image->getClientOriginalName();
             //$uniqueFilename = md5(uniqid()) . "-" . $filename;
 
-            $video_file->move($this->getParameter('videos_dir'), $video_file->getClientOriginalName());
+            //$video_file->move($this->getParameter('videos_dir'), $video_file->getClientOriginalName());
             $thumbnail_file->move($this->getParameter('thumbnails_dir'), $thumbnail_file->getClientOriginalName());
 
-            $video->setPath($video_file->getClientOriginalName());
+            //$video->setPath($video_file->getClientOriginalName());
             $video->setThumbnail($thumbnail_file->getClientOriginalName());
 
             $em->persist($video);
@@ -51,6 +51,7 @@ class PlayerController extends AbstractController {
         $path = $request->query->get('path');
         return $this->render('player/player.html.twig', [
             'video_path' => $path,
+            'videos_dir' => $this->getParameter('videos_dir')
         ]);
     }
 }
