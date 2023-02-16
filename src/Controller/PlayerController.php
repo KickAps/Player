@@ -11,9 +11,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class PlayerController extends AbstractController {
+class PlayerController extends AbstractController
+{
     #[Route('/', name: 'app_index')]
-    public function index(Request $request, VideoRepository $videoRepository, EntityManagerInterface $em): Response {
+    public function index(Request $request, VideoRepository $videoRepository, EntityManagerInterface $em): Response
+    {
         $video_list = $videoRepository->findAll();
 
         $video = new Video();
@@ -21,18 +23,12 @@ class PlayerController extends AbstractController {
         $form = $this->createForm(VideoType::class, $video);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
-            //$video_file = $form->get('video')->getData();
+        if ($form->isSubmitted() && $form->isValid()) {
             $thumbnail_file = $form->get('thumbnail')->getData();
-
-            //$filename = $image->getClientOriginalName();
-            //$uniqueFilename = md5(uniqid()) . "-" . $filename;
-
-            //$video_file->move($this->getParameter('videos_dir'), $video_file->getClientOriginalName());
-            $thumbnail_file->move($this->getParameter('thumbnails_dir'), $thumbnail_file->getClientOriginalName());
-
-            //$video->setPath($video_file->getClientOriginalName());
-            $video->setThumbnail($thumbnail_file->getClientOriginalName());
+            if ($thumbnail_file) {
+                $thumbnail_file->move($this->getParameter('thumbnails_dir'), $thumbnail_file->getClientOriginalName());
+                $video->setThumbnail($thumbnail_file->getClientOriginalName());
+            }
 
             $em->persist($video);
             $em->flush();
@@ -47,10 +43,14 @@ class PlayerController extends AbstractController {
     }
 
     #[Route('/player', name: 'app_player')]
-    public function player(Request $request): Response {
-        $path = $request->query->get('path');
+    public function player(Request $request, VideoRepository $videoRepository): Response
+    {
+        $video_id = $request->query->get('id');
+        $video = $videoRepository->find($video_id);
+
+        $video_path = "https://onedrive.live.com/download?cid=29246095C87A94F7&resid=29246095C87A94F7%" . $video->getOnedriveId() . "&authkey" . $video->getOnedriveAuthkey();
         return $this->render('player/player.html.twig', [
-            'video_path' => $path,
+            'video_path' => $video_path,
             'videos_dir' => $this->getParameter('videos_dir')
         ]);
     }

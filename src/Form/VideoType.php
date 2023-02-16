@@ -9,16 +9,22 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class VideoType extends AbstractType {
-    public function buildForm(FormBuilderInterface $builder, array $options): void {
+class VideoType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
         $builder
             ->add('title', TextType::class, [
                 'label' => 'Titre',
                 'label_attr' => ['class' => 'title'],
                 'attr' => ['autofocus' => true]
             ])
-            ->add('path', TextType::class, [
-                'label' => 'Vidéo',
+            ->add('onedrive_id', TextType::class, [
+                'label' => 'onedrive_id',
+                'label_attr' => ['class' => 'title'],
+            ])
+            ->add('onedrive_authkey', TextType::class, [
+                'label' => 'onedrive_authkey',
                 'label_attr' => ['class' => 'title'],
             ])
             ->add('year', TextType::class, [
@@ -36,7 +42,8 @@ class VideoType extends AbstractType {
             ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver): void {
+    public function configureOptions(OptionsResolver $resolver): void
+    {
         $resolver->setDefaults([
             'data_class' => Video::class,
         ]);

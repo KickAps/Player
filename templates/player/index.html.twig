@@ -16,10 +16,10 @@
                     <article class="bg-white rounded shadow p-3">
                         <div class="article">
                             <h3 class="text-center text-secondary font-weight-bold pb-3 m-0">
-                                <a href="{{ path('app_player', {'path' : video.path}) }}" class="text-secondary text-decoration-none">{{ video.title }}</a>
+                                <a href="{{ path('app_player', {'id' : video.id}) }}" class="text-secondary text-decoration-none">{{ video.title }}</a>
                             </h3>
                             <div class="mw-100 rounded overflow-hidden mb-3">
-                                <a href="{{ path('app_player', {'path' : video.path}) }}">
+                                <a href="{{ path('app_player', {'id' : video.id}) }}">
                                     <img src="{{ asset('/thumbnails/' ~ video.thumbnail) }}" alt="Image" class="w-100">
                                 </a>
                             </div>

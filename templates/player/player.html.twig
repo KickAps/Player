@@ -11,14 +11,10 @@
 
     <div>
         <div class="player-container w-50 m-auto">
-            {% if file_exists(videos_dir ~ video_path) %}
-                <video width="100%" controls>
-                    <source src="{{ asset('videos/' ~ video_path) }}" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            {% else %}
-                <span>En attente du fichier vidéo sur le serveur</span>
-            {% endif %}
+            <video width="100%" controls>
+                <source src="{{ video_path }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
         </div>
     </div>
 {% endblock %}
