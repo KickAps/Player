@@ -26,8 +26,21 @@ class PlayerController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $thumbnail_file = $form->get('thumbnail')->getData();
             if ($thumbnail_file) {
-                $thumbnail_file->move($this->getParameter('thumbnails_dir'), $thumbnail_file->getClientOriginalName());
-                $video->setThumbnail($thumbnail_file->getClientOriginalName());
+
+                $filename = md5(uniqid($thumbnail_file->getClientOriginalName(), true)) . "_" . $thumbnail_file->getClientOriginalName();
+                $info = getimagesize($thumbnail_file);
+
+                switch ($info['mime']) {
+                    case 'image/jpeg':
+                        $image = imagecreatefromjpeg($thumbnail_file);
+                        break;
+                    case 'image/png':
+                        $image = imagecreatefrompng($thumbnail_file);
+                }
+
+                imagejpeg($image, $this->getParameter('thumbnails_dir') . $filename, 60);
+
+                $video->setThumbnail($filename);
             }
 
             $em->persist($video);
