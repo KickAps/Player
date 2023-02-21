@@ -3,8 +3,8 @@
 {% block title %}Hello PlayerController!{% endblock %}
 
 {% block body %}
-    <div class="text-center m-4">
-        <div class="mb-3">
+    <div class="mx-4 mt-3">
+        <div class="text-center mb-3">
             {% for flag, video_list in video_by_flag %}
             <a type="button" id="{{ 'flag_' ~ loop.index0 }}" class="btn {{ loop.first ? 'btn-primary' : 'btn-secondary' }}">
                 {{ flag }}
@@ -17,19 +17,19 @@
             <div class="row">
                 {% for video in row %}
                     <div class="col-md-3 mb-4">
-                        <article class="bg-light rounded shadow p-3">
+                        <article class="bg-light rounded shadow p-3 pb-2">
                             <div class="article">
-                                <h3 class="text-center text-secondary font-weight-bold pb-3 m-0">
+                                <h5 class="text-center text-secondary font-weight-bold pb-3 m-0">
                                     <a href="{{ path('app_player', {'id' : video.id}) }}" class="text-secondary text-decoration-none">{{ video.title }}</a>
-                                </h3>
-                                <div class="mw-100 rounded overflow-hidden mb-3">
+                                </h5>
+                                <div class="mw-100 rounded overflow-hidden mb-2">
                                     <a href="{{ path('app_player', {'id' : video.id}) }}">
                                         <img src="{{ asset('/thumbnails/' ~ video.thumbnail) }}" alt="Image" class="w-100">
                                     </a>
                                 </div>
                             </div>
                             <div class="text-muted">
-                                <small><b>{{ video.year }}</b></small>
+                                <b>{{ video.year }}</b>
                             </div>
                         </article>
                     </div>
