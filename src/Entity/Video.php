@@ -28,6 +28,9 @@ class Video
     #[ORM\Column(type: 'string', length: 255)]
     private $onedrive_authkey;
 
+    #[ORM\Column(type: 'array', nullable: true)]
+    private $flag = [];
+
     public function getId(): ?int
     {
         return $this->id;
@@ -89,6 +92,18 @@ class Video
     public function setOnedriveAuthkey(string $onedrive_authkey): self
     {
         $this->onedrive_authkey = $onedrive_authkey;
+
+        return $this;
+    }
+
+    public function getFlag(): ?array
+    {
+        return $this->flag;
+    }
+
+    public function setFlag(?array $flag): self
+    {
+        $this->flag = $flag;
 
         return $this;
     }

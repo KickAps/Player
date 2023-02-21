@@ -2,8 +2,10 @@
 
 namespace App\Form;
 
+use App\Controller\PlayerController;
 use App\Entity\Video;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -26,6 +28,13 @@ class VideoType extends AbstractType
             ->add('onedrive_authkey', TextType::class, [
                 'label' => 'onedrive_authkey',
                 'label_attr' => ['class' => 'title'],
+            ])
+            ->add('flag', ChoiceType::class, [
+                'label' => 'flags',
+                'label_attr' => ['class' => 'title'],
+                'choices' => array_flip(PlayerController::FLAGS),
+                'multiple' => true,
+                'expanded' => true,
             ])
             ->add('year', TextType::class, [
                 'label' => 'Année',

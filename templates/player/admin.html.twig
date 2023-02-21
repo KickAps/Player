@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PlayerController!{% endblock %}
+
+{% block body %}
+   <div class="text-center m-4">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Add new video
+        </button>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add new video</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                {{ form_start(video_form) }}
+                <div class="modal-body">
+                    {{ form_widget(video_form) }}
+                </div>
+                <div class="modal-footer">
+                    <div class="width-fit-content mx-auto">
+                        <input type="submit" class="btn btn-primary" value="OK" formnovalidate>
+                    </div>
+                </div>
+                {{ form_end(video_form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

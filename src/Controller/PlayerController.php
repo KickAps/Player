@@ -13,11 +13,48 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PlayerController extends AbstractController
 {
+    const FLAGS = [
+        'Florian',
+        'Camille',
+        'Voyage',
+        'Adrénaline',
+    ];
+
     #[Route('/', name: 'app_index')]
-    public function index(Request $request, VideoRepository $videoRepository, EntityManagerInterface $em): Response
+    public function index(VideoRepository $videoRepository): Response
     {
         $video_list = $videoRepository->findAll();
+        foreach (self::FLAGS as $id => $flag) {
+            foreach ($video_list as $video) {
+                if ($video->getFlag() && in_array($id, $video->getFlag())) {
+                    $video_by_flag[$flag][] = $video;
+                }
+            }
+        }
 
+        $video_by_flag['Tout'] = $videoRepository->findAll();
+
+        return $this->render('player/index.html.twig', [
+            'video_by_flag' => $video_by_flag
+        ]);
+    }
+
+    #[Route('/player', name: 'app_player')]
+    public function player(Request $request, VideoRepository $videoRepository): Response
+    {
+        $video_id = $request->query->get('id');
+        $video = $videoRepository->find($video_id);
+
+        $video_path = "https://onedrive.live.com/download?cid=29246095C87A94F7&resid=29246095C87A94F7%" . $video->getOnedriveId() . "&authkey=" . $video->getOnedriveAuthkey();
+        return $this->render('player/player.html.twig', [
+            'video_path' => $video_path,
+            'videos_dir' => $this->getParameter('videos_dir')
+        ]);
+    }
+
+    #[Route('/admin', name: 'app_admin')]
+    public function admin(Request $request, EntityManagerInterface $em): Response
+    {
         $video = new Video();
 
         $form = $this->createForm(VideoType::class, $video);
@@ -49,22 +86,8 @@ class PlayerController extends AbstractController
             return $this->redirectToRoute('app_index');
         }
 
-        return $this->render('player/index.html.twig', [
-            'video_list' => $video_list,
+        return $this->render('player/admin.html.twig', [
             'video_form' => $form->createView()
-        ]);
-    }
-
-    #[Route('/player', name: 'app_player')]
-    public function player(Request $request, VideoRepository $videoRepository): Response
-    {
-        $video_id = $request->query->get('id');
-        $video = $videoRepository->find($video_id);
-
-        $video_path = "https://onedrive.live.com/download?cid=29246095C87A94F7&resid=29246095C87A94F7%" . $video->getOnedriveId() . "&authkey=" . $video->getOnedriveAuthkey();
-        return $this->render('player/player.html.twig', [
-            'video_path' => $video_path,
-            'videos_dir' => $this->getParameter('videos_dir')
         ]);
     }
 }
