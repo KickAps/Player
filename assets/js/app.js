@@ -14,6 +14,12 @@ import $ from 'jquery';
 $(function () {
     $('a[id^=flag_]').each(function (i) {
         $(this).on('click', function () {
+            $('a[id^=flag_]').removeClass('btn-primary');
+            $('a[id^=flag_]').addClass('btn-secondary');
+
+            $(this).removeClass('btn-secondary');
+            $(this).addClass('btn-primary');
+
             $('div[id^=video_list_]').each(function (j) {
                 $(this).prop('hidden', i !== j);
             });

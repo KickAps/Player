@@ -4,28 +4,20 @@
 
 {% block body %}
     <div class="text-center m-4">
-        <a type="button" href="{{ path('app_admin') }}" class="btn btn-primary">
-            Admin
-        </a>
-    </div>
-
-    <div class="text-center m-4">
-        The Player
-    </div>
-
-    <div class="text-center m-4">
-        {% for flag, video_list in video_by_flag %}
-        <a type="button" id="{{ 'flag_' ~ loop.index0 }}" class="btn btn-primary">
-            {{ flag }}
-        </a>
-        {% endfor %}
+        <div class="mb-3">
+            {% for flag, video_list in video_by_flag %}
+            <a type="button" id="{{ 'flag_' ~ loop.index0 }}" class="btn {{ loop.first ? 'btn-primary' : 'btn-secondary' }}">
+                {{ flag }}
+            </a>
+            {% endfor %}
+        </div>
         {% for flag, video_list in video_by_flag %}
         <div id="{{ 'video_list_' ~ loop.index0 }}" {{ loop.first ? '' : 'hidden' }}>
             {% for row in video_list|sort((a, b) => b.year <=> a.year)|batch(4) %}
             <div class="row">
                 {% for video in row %}
                     <div class="col-md-3 mb-4">
-                        <article class="bg-white rounded shadow p-3">
+                        <article class="bg-light rounded shadow p-3">
                             <div class="article">
                                 <h3 class="text-center text-secondary font-weight-bold pb-3 m-0">
                                     <a href="{{ path('app_player', {'id' : video.id}) }}" class="text-secondary text-decoration-none">{{ video.title }}</a>
