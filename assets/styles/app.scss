@@ -11,6 +11,7 @@ body {
     height: calc(100% - 80px);
     background-color: #89a6db;
     font-family: 'Montserrat', sans-serif;
+    overflow: hidden;
 }
 
 article {
@@ -27,4 +28,9 @@ article {
 .font-weight-bold {
     font-weight: bold;
     font-size: 2rem;
+}
+
+.overflow-y-scroll {
+    overflow-y: scroll;
+    height: 100%;
 }
