@@ -50,7 +50,7 @@ class PlayerController extends AbstractController
         $video_path = "https://onedrive.live.com/download?cid=29246095C87A94F7&resid=29246095C87A94F7%" . $video->getOnedriveId() . "&authkey=" . $video->getOnedriveAuthkey();
         return $this->render('player/player.html.twig', [
             'video_path' => $video_path,
-            'videos_dir' => $this->getParameter('videos_dir')
+            'video_title' => $video->getTitle()
         ]);
     }
 
