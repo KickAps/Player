@@ -8,6 +8,7 @@ use App\Repository\VideoRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +16,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PlayerController extends AbstractController
 {
+    const COOKIE_HASH = "$2y$10$7ZyMPl905Ik/mGVxYu1V4OcLvrckzlHNEAQjLqeRrrg8/xATooCAu";
+    const PASSWORD_HASH = "$2y$10$8MXHXSp3y9wCVNQYIIUdS.PXLKIGXgPU.Tk.f1slVMKF1bZovbQIu";
+
     const FLAGS = [
         'Florian',
         'Camille',
@@ -57,6 +61,10 @@ class PlayerController extends AbstractController
     #[Route('/admin', name: 'app_admin')]
     public function admin(Request $request, VideoRepository $videoRepository, EntityManagerInterface $em): Response
     {
+        if ($response = $this->check_cookie_password($request)) {
+            return $response;
+        }
+
         $update = false;
         $video = $request->request->all('video');
 
@@ -122,5 +130,31 @@ class PlayerController extends AbstractController
             'onedrive_authkey' => $video->getOnedriveAuthkey(),
             'flag' => $video->getFlag(),
         ]);
+    }
+
+    #[Route("/password", name: "app_password", methods: ["GET", "POST"])]
+    public function password(Request $request): Response
+    {
+        if (password_verify($request->cookies->get("password"), self::COOKIE_HASH)) {
+            return $this->redirectToRoute("app_admin");
+        }
+
+        $password = $request->request->get("password");
+
+        if (password_verify($password, self::PASSWORD_HASH)) {
+            // Redirection
+            $response = $this->redirectToRoute("app_admin");
+            $response->headers->setCookie(Cookie::create("password", "valid"));
+            return $response;
+        }
+
+        return $this->render("player/password.html.twig");
+    }
+
+    public function check_cookie_password(Request $request)
+    {
+        if (!password_verify($request->cookies->get("password"), self::COOKIE_HASH)) {
+            return $this->redirectToRoute("app_index");
+        }
     }
 }
