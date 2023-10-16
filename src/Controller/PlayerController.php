@@ -54,7 +54,8 @@ class PlayerController extends AbstractController
         $video_path = "https://onedrive.live.com/download?cid=29246095C87A94F7&resid=29246095C87A94F7%" . $video->getOnedriveId() . "&authkey=" . $video->getOnedriveAuthkey();
         return $this->render('player/player.html.twig', [
             'video_path' => $video_path,
-            'video_title' => $video->getTitle()
+            'video_title' => $video->getTitle(),
+            'youtube_url' => $video->getYoutubeUrl()
         ]);
     }
 
@@ -75,7 +76,9 @@ class PlayerController extends AbstractController
             $video = new Video();
         }
 
-        $form = $this->createForm(VideoType::class, $video);
+        // BUG : csrf_protection -> Failed to start the session: already started by PHP
+        // $form = $this->createForm(VideoType::class, $video);
+        $form = $this->createForm(VideoType::class, $video, ['csrf_protection' => false]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -129,6 +132,7 @@ class PlayerController extends AbstractController
             'onedrive_id' => $video->getOnedriveId(),
             'onedrive_authkey' => $video->getOnedriveAuthkey(),
             'flag' => $video->getFlag(),
+            'youtube_url' => $video->getYoutubeUrl(),
         ]);
     }
 

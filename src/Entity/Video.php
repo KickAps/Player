@@ -31,6 +31,9 @@ class Video
     #[ORM\Column(type: 'array', nullable: true)]
     private $flag = [];
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $youtube_url;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -104,6 +107,18 @@ class Video
     public function setFlag(?array $flag): self
     {
         $this->flag = $flag;
+
+        return $this;
+    }
+
+    public function getYoutubeUrl(): ?string
+    {
+        return $this->youtube_url;
+    }
+
+    public function setYoutubeUrl(?string $youtube_url): self
+    {
+        $this->youtube_url = $youtube_url;
 
         return $this;
     }

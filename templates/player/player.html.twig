@@ -14,5 +14,12 @@
                 Your browser does not support the video tag.
             </video>
         </div>
+
+        {% if youtube_url %}
+        <div class="text-center">
+            <span>En cas de problème de visionnage, la vidéo est aussi disponible sur YouTube : </span>
+            <a href={{ youtube_url }}>{{ video_title }}</a>
+        </div>
+        {% endif %}
     </div>
 {% endblock %}

@@ -39,6 +39,7 @@ $(function () {
                 $('input#video_year').val(response['year']);
                 $('input#video_onedrive_id').val(response['onedrive_id']);
                 $('input#video_onedrive_authkey').val(response['onedrive_authkey']);
+                $('input#video_youtube_url').val(response['youtube_url']);
 
                 $('div#video_flag :input').prop('checked', false);
                 if (response['flag']) {

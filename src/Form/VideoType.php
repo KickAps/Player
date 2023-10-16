@@ -34,6 +34,10 @@ class VideoType extends AbstractType
                 'label' => 'onedrive_authkey',
                 'label_attr' => ['class' => 'title'],
             ])
+            ->add('youtube_url', TextType::class, [
+                'label' => 'URL youtube',
+                'label_attr' => ['class' => 'title'],
+            ])
             ->add('flag', ChoiceType::class, [
                 'label' => 'flags',
                 'label_attr' => ['class' => 'title'],
