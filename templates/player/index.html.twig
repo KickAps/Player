@@ -13,7 +13,7 @@
         </div>
         {% for flag, video_list in video_by_flag %}
         <div id="{{ 'video_list_' ~ loop.index0 }}" {{ loop.first ? '' : 'hidden' }}>
-            {% for row in video_list|sort((a, b) => b.year <=> a.year)|batch(4) %}
+            {% for row in video_list|batch(4) %}
             <div class="row">
                 {% for video in row %}
                     <div class="col-md-3 mb-4">

@@ -29,7 +29,7 @@ class PlayerController extends AbstractController
     #[Route('/', name: 'app_index')]
     public function index(VideoRepository $videoRepository): Response
     {
-        $video_list = $videoRepository->findAll();
+        $video_list = $videoRepository->findAllSorted();
         foreach (self::FLAGS as $id => $flag) {
             foreach ($video_list as $video) {
                 if ($video->getFlag() && in_array($id, $video->getFlag())) {
@@ -38,7 +38,7 @@ class PlayerController extends AbstractController
             }
         }
 
-        $video_by_flag['Tout'] = $videoRepository->findAll();
+        $video_by_flag['Tout'] = $videoRepository->findAllSorted();
 
         return $this->render('player/index.html.twig', [
             'video_by_flag' => $video_by_flag
