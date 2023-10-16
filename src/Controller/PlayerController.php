@@ -112,7 +112,7 @@ class PlayerController extends AbstractController
             return $this->redirectToRoute('app_admin');
         }
 
-        $video_list = $videoRepository->findAll();
+        $video_list = $videoRepository->findAllSorted();
 
         return $this->render('player/admin.html.twig', [
             'video_form' => $form->createView(),
