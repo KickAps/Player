@@ -22,7 +22,7 @@ class Video
     #[ORM\Column(type: 'string', length: 255)]
     private $thumbnail;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 500)]
     private $onedrive_url;
 
     #[ORM\Column(type: 'array', nullable: true)]
