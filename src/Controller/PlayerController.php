@@ -51,11 +51,10 @@ class PlayerController extends AbstractController
         $video_id = $request->query->get('id');
         $video = $videoRepository->find($video_id);
 
-        $video_path = "https://onedrive.live.com/download?cid=29246095C87A94F7&resid=29246095C87A94F7%" . $video->getOnedriveId() . "&authkey=" . $video->getOnedriveAuthkey();
         return $this->render('player/player.html.twig', [
-            'video_path' => $video_path,
             'video_title' => $video->getTitle(),
-            'youtube_url' => $video->getYoutubeUrl()
+            'youtube_url' => $video->getYoutubeUrl(),
+            'onedrive_url' => $video->getOnedriveUrl(),
         ]);
     }
 
@@ -129,8 +128,7 @@ class PlayerController extends AbstractController
         return new JsonResponse([
             'title' => $video->getTitle(),
             'year' => $video->getYear(),
-            'onedrive_id' => $video->getOnedriveId(),
-            'onedrive_authkey' => $video->getOnedriveAuthkey(),
+            'onedrive_url' => $video->getOnedriveUrl(),
             'flag' => $video->getFlag(),
             'youtube_url' => $video->getYoutubeUrl(),
         ]);

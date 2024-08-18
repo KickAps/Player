@@ -23,10 +23,7 @@ class Video
     private $thumbnail;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $onedrive_id;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    private $onedrive_authkey;
+    private $onedrive_url;
 
     #[ORM\Column(type: 'array', nullable: true)]
     private $flag = [];
@@ -75,26 +72,14 @@ class Video
         return $this;
     }
 
-    public function getOnedriveId(): ?string
+    public function getOnedriveUrl(): ?string
     {
-        return $this->onedrive_id;
+        return $this->onedrive_url;
     }
 
-    public function setOnedriveId(string $onedrive_id): self
+    public function setOnedriveUrl(string $onedrive_url): self
     {
-        $this->onedrive_id = $onedrive_id;
-
-        return $this;
-    }
-
-    public function getOnedriveAuthkey(): ?string
-    {
-        return $this->onedrive_authkey;
-    }
-
-    public function setOnedriveAuthkey(string $onedrive_authkey): self
-    {
-        $this->onedrive_authkey = $onedrive_authkey;
+        $this->onedrive_url = $onedrive_url;
 
         return $this;
     }

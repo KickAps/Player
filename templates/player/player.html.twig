@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PlayerController!{% endblock %}
+{% block title %}Player
+{% endblock %}
 
 {% block body %}
     <div class="text-center m-4">
@@ -10,16 +11,16 @@
     <div>
         <div class="player-container w-50 m-auto">
             <video width="100%" controls>
-                <source src="{{ video_path }}" type="video/mp4">
+                <source src="{{ onedrive_url }}" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         </div>
 
         {% if youtube_url %}
-        <div class="text-center">
-            <span>En cas de problème de visionnage, la vidéo est aussi disponible sur YouTube : </span>
-            <a href={{ youtube_url }}>{{ video_title }}</a>
-        </div>
+            <div class="text-center">
+                <span>En cas de problème de visionnage, la vidéo est aussi disponible sur YouTube :</span>
+                <a href={{ youtube_url }}>{{ video_title }}</a>
+            </div>
         {% endif %}
     </div>
 {% endblock %}
