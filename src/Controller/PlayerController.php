@@ -53,8 +53,8 @@ class PlayerController extends AbstractController
 
         return $this->render('player/player.html.twig', [
             'video_title' => $video->getTitle(),
-            'youtube_url' => $video->getYoutubeUrl(),
-            'onedrive_url' => $video->getOnedriveUrl(),
+            'external_url' => $video->getExternalUrl(),
+            'external_id' => $video->getExternalId(),
         ]);
     }
 
@@ -128,9 +128,9 @@ class PlayerController extends AbstractController
         return new JsonResponse([
             'title' => $video->getTitle(),
             'year' => $video->getYear(),
-            'onedrive_url' => $video->getOnedriveUrl(),
+            'external_id' => $video->getExternalId(),
             'flag' => $video->getFlag(),
-            'youtube_url' => $video->getYoutubeUrl(),
+            'external_url' => $video->getExternalUrl(),
         ]);
     }
 

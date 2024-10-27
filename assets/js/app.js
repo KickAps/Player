@@ -36,8 +36,8 @@ $(function () {
             $.get(window.location.origin + '/video_info?id=' + id, function (response) {
                 $('input#video_title').val(response['title']);
                 $('input#video_year').val(response['year']);
-                $('input#video_onedrive_url').val(response['onedrive_url']);
-                $('input#video_youtube_url').val(response['youtube_url']);
+                $('input#video_external_id').val(response['external_id']);
+                $('input#video_external_url').val(response['external_url']);
 
                 $('div#video_flag :input').prop('checked', false);
                 if (response['flag']) {
@@ -54,7 +54,7 @@ $(function () {
         $('input#video_id').val("");
         $('input#video_title').val("");
         $('input#video_year').val("");
-        $('input#video_onedrive_url').val("");
+        $('input#video_external_id').val("");
         $('div#video_flag :input').prop('checked', false);
     });
 });
