@@ -26,7 +26,7 @@ class VideoType extends AbstractType
                 'label' => 'Année',
                 'label_attr' => ['class' => 'title'],
             ])
-            ->add('external_id_url', TextType::class, [
+            ->add('external_id', TextType::class, [
                 'label' => 'ID externe',
                 'label_attr' => ['class' => 'title'],
             ])
