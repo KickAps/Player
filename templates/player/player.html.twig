@@ -10,13 +10,16 @@
 
     <div>
         <div class="player-container w-50 m-auto">
-            <iframe frameborder="0" width="960" height="540" src="{{ 'https://geo.dailymotion.com/player.html?video=' ~ external_id }}" allowfullscreen allow="autoplay"></iframe>
+            <video width="100%" controls>
+                <source src="{{ onedrive_url }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
         </div>
 
-        {% if external_url %}
+        {% if youtube_url %}
             <div class="text-center">
-                <span>Un problème de visionnage ? La vidéo est aussi disponible ici :</span>
-                <a href={{ external_url }}>{{ video_title }}</a>
+                <span>En cas de problème de visionnage, la vidéo est aussi disponible sur YouTube :</span>
+                <a href={{ youtube_url }}>{{ video_title }}</a>
             </div>
         {% endif %}
     </div>

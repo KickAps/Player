@@ -26,12 +26,12 @@ class VideoType extends AbstractType
                 'label' => 'Année',
                 'label_attr' => ['class' => 'title'],
             ])
-            ->add('external_id', TextType::class, [
-                'label' => 'ID externe',
+            ->add('onedrive_url', TextType::class, [
+                'label' => 'URL OneDrive',
                 'label_attr' => ['class' => 'title'],
             ])
-            ->add('external_url', TextType::class, [
-                'label' => 'URL externe',
+            ->add('youtube_url', TextType::class, [
+                'label' => 'URL YouTube',
                 'label_attr' => ['class' => 'title'],
             ])
             ->add('flag', ChoiceType::class, [

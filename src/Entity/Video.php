@@ -22,14 +22,14 @@ class Video
     #[ORM\Column(type: 'string', length: 255)]
     private $thumbnail;
 
+    #[ORM\Column(type: 'string', length: 2000)]
+    private $onedrive_url;
+
     #[ORM\Column(type: 'array', nullable: true)]
     private $flag = [];
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $external_id;
-
-    #[ORM\Column(type: 'string', length: 2000, nullable: true)]
-    private $external_url;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $youtube_url;
 
     public function getId(): ?int
     {
@@ -72,6 +72,18 @@ class Video
         return $this;
     }
 
+    public function getOnedriveUrl(): ?string
+    {
+        return $this->onedrive_url;
+    }
+
+    public function setOnedriveUrl(string $onedrive_url): self
+    {
+        $this->onedrive_url = $onedrive_url;
+
+        return $this;
+    }
+
     public function getFlag(): ?array
     {
         return $this->flag;
@@ -84,27 +96,14 @@ class Video
         return $this;
     }
 
-    public function getExternalId(): ?string
+    public function getYoutubeUrl(): ?string
     {
-        return $this->external_id;
+        return $this->youtube_url;
     }
 
-    public function setExternalId(string $external_id): self
+    public function setYoutubeUrl(?string $youtube_url): self
     {
-        $this->external_id = $external_id;
-
-        return $this;
-    }
-
-
-    public function getExternalUrl(): ?string
-    {
-        return $this->external_url;
-    }
-
-    public function setExternalUrl(?string $external_url): self
-    {
-        $this->external_url = $external_url;
+        $this->youtube_url = $youtube_url;
 
         return $this;
     }
